@@ -1,0 +1,10 @@
+{
+    "name": "tomlerendu/TweetSentiment",
+    "version": "0.1",
+    "type": "library",
+    "description": "A PHP sentiment analysis library for Tweets.",
+    "keywords": ["sentiment", "analysis"],
+    "require": {
+        "php": ">=5.5.0"
+    }
+}
