@@ -7,7 +7,7 @@ class Data
 {
     private $pos = [];
     private $neg = [];
-    
+
     public function __construct($dataDir)
     {
 
