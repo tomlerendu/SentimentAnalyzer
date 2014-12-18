@@ -5,8 +5,8 @@ namespace TweetSentiment;
 
 class Data
 {
-    private $pos = [];
-    private $neg = [];
+    private $positive = [];
+    private $negative = [];
 
     public function __construct($dataDir)
     {
@@ -23,9 +23,9 @@ class Data
      * @param $word - The word that is being counted
      * @return int The number of occurrences of $word
      */
-    public function getPosCount($word)
+    public function getPositiveCount($word)
     {
-        return isset($pos[$word]) ? $pos[$word] : 0;
+        return isset($this->positive[$word]) ? $this->positive[$word] : 0;
     }
 
     /**
@@ -33,8 +33,28 @@ class Data
      * @param $word - The word that is being counted
      * @return int The number of occurrences of $word
      */
-    public function getNegCount($word)
+    public function getNegativeCount($word)
     {
-        return isset($neg[$word]) ? $neg[$word] : 0;
+        return isset($this->negative[$word]) ? $this->negative[$word] : 0;
+    }
+
+    /**
+     * Finds the probability of a word occurring in the positive data set
+     * @param $word - The word that will be checked
+     * @return int The probability that $word will occur
+     */
+    public function getPositiveProbability($word)
+    {
+        return isset($this->positive[$word]) ? $this->positive[$word] / count($this->positive[$word]) : 0;
+    }
+
+    /**
+     * Finds the probability of a word occurring in the negative data set
+     * @param $word - The word that will be checked
+     * @return int The probability that $word will occur
+     */
+    public function getNegativeProbability($word)
+    {
+        return isset($this->negative[$word]) ? $this->negative[$word] / count($this->negative[$word]) : 0;
     }
 } 
