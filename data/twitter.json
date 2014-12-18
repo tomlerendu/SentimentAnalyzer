@@ -1,0 +1,13 @@
+{
+    "positive" : [
+        ["word1", 2],
+        ["word2", 4],
+        ["word3", 5]
+    ],
+
+    "negative" : [
+        ["word1", 2],
+        ["word2", 4],
+        ["word3", 5]
+    ]
+}
