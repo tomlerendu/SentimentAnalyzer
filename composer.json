@@ -11,6 +11,6 @@
     
     "require": {
         "php": ">=5.5.0",
-        "salsify/json-streaming-parser": "3.0"
+        "salsify/json-streaming-parser": "v3.0"
     }
 }
