@@ -1,13 +1,10 @@
 {
-    "name": "tomlerendu/sentiment-analyzer",
+    "name": "tomlerendu/TweetSentiment",
     "version": "0.1",
     "type": "library",
-    
-    "description": "A general purpose PHP sentiment analysis library.",
+    "description": "A PHP sentiment analysis library for Tweets.",
     "keywords": ["sentiment", "analysis"],
-    
     "require": {
-        "php": ">=5.5.0",
-        "salsify/json-streaming-parser": "*"
+        "php": ">=5.5.0"
     }
 }
