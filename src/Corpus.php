@@ -3,17 +3,17 @@
 namespace SentimentAnalyzer;
 
 
-class Data
+class Corpus
 {
     private $positive = [];
     private $negative = [];
 
-    public function __construct($dataDir)
+    public function __construct($location)
     {
-
+        $this->loadJSONFile($location);
     }
 
-    private function loadDataDir($dataDir)
+    private function loadJSONFile($location)
     {
 
     }
