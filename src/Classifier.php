@@ -5,11 +5,11 @@ namespace SentimentAnalyzer;
 
 class Classifier
 {
-    private $data = null;
+    private $corpus;
 
-    public function __construct($dataDir)
+    public function __construct(Corpus $corpus)
     {
-        $data = new Data($dataDir);
+        $this->corpus = $corpus;
     }
 
     public function getSentiment($text)
