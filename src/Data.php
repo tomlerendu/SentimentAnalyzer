@@ -1,6 +1,6 @@
 <?php
 
-namespace TweetSentiment;
+namespace SentimentAnalyzer;
 
 
 class Data
