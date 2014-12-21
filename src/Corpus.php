@@ -49,22 +49,28 @@ class Corpus
 
     /**
      * Finds the number of occurrences of a word in the positive data set
-     * @param $word - The word that is being counted
+     * @param $word - The word that is being counted, if no word is passed the total positive word count is returned.
      * @return int The number of occurrences of $word
      */
-    public function getPositiveCount($word)
+    public function getPositiveCount($word=null)
     {
-        return isset($this->positive[$word]) ? $this->positive[$word] : 0;
+        if($word)
+            return isset($this->positive[$word]) ? $this->positive[$word] : 0;
+        else
+            return $this->totalPositive;
     }
 
     /**
      * Finds the number of occurrences of a word in the negative data set
-     * @param $word - The word that is being counted
+     * @param $word - The word that is being counted, if no word is passed the total negative word count is returned.
      * @return int The number of occurrences of $word
      */
-    public function getNegativeCount($word)
+    public function getNegativeCount($word=null)
     {
-        return isset($this->negative[$word]) ? $this->negative[$word] : 0;
+        if($word)
+            return isset($this->negative[$word]) ? $this->negative[$word] : 0;
+        else
+            return $this->totalNegative;
     }
 
     /**
