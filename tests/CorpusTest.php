@@ -22,15 +22,5 @@ class CorpusTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $corpus->getNegativeCount('another'));
         $this->assertEquals(0, $corpus->getNegativeCount('hello'));
     }
-
-    public function testProbability()
-    {
-        $corpus = new SentimentAnalyzer\Corpus();
-
-        $corpus->addPositiveString('The probability is one in six.');
-        $this->assertEquals(1/6, $corpus->getPositiveProbability('the'));
-        $this->assertEquals(1/6, $corpus->getPositiveProbability('six'));
-        $this->assertEquals(0, $corpus->getPositiveProbability('hello'));
-    }
 }
  

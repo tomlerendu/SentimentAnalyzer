@@ -4,9 +4,7 @@ namespace SentimentAnalyzer;
 
 class Corpus
 {
-    private $totalPositive = 0;
     private $positive = [];
-    private $totalNegative = 0;
     private $negative = [];
 
     public function __construct($location = null)
@@ -26,10 +24,7 @@ class Corpus
         $tokens = Helper::tokenize($string);
 
         foreach($tokens as $token)
-        {
             $this->positive[$token] = (isset($this->positive[$token])) ? $this->positive[$token] + 1 : 1;
-            $this->totalPositive++;
-        }
     }
 
     /**
@@ -41,10 +36,7 @@ class Corpus
         $tokens = Helper::tokenize($string);
 
         foreach($tokens as $token)
-        {
             $this->negative[$token] = (isset($this->negative[$token])) ? $this->negative[$token] + 1 : 1;
-            $this->totalNegative++;
-        }
     }
 
     /**
@@ -74,7 +66,7 @@ class Corpus
      */
     public function getPositiveProbability($word)
     {
-        return isset($this->positive[$word]) ? (float)$this->positive[$word] / $this->totalPositive : 0;
+        return isset($this->positive[$word]) ? $this->positive[$word] / count($this->positive[$word]) : 0;
     }
 
     /**
@@ -84,6 +76,6 @@ class Corpus
      */
     public function getNegativeProbability($word)
     {
-        return isset($this->negative[$word]) ? (float)$this->negative[$word] / $this->totalNegative : 0;
+        return isset($this->negative[$word]) ? $this->negative[$word] / count($this->negative[$word]) : 0;
     }
 } 
