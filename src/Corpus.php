@@ -2,20 +2,41 @@
 
 namespace SentimentAnalyzer;
 
-
 class Corpus
 {
     private $positive = [];
     private $negative = [];
 
-    public function __construct($location)
+    public function __construct($location = null)
     {
-        $this->loadJSONFile($location);
+        if($location != null)
+        {
+            //todo read in json file from location
+        }
     }
 
-    private function loadJSONFile($location)
+    /**
+     * Adds a string to the corpus that has been classified as positive
+     * @param $string - The string to be added to the corpus
+     */
+    public function addPositiveString($string)
     {
+        $tokens = Helper::tokenize($string);
 
+        foreach($tokens as $token)
+            $this->positive[$token] = (isset($this->positive[$token])) ? $this->positive[$token] + 1 : 1;
+    }
+
+    /**
+     * Adds a string to the corpus that has been classified as negative
+     * @param $string - The string to be added to the corpus
+     */
+    public function addNegativeString($string)
+    {
+        $tokens = Helper::tokenize($string);
+
+        foreach($tokens as $token)
+            $this->negative[$token] = (isset($this->negative[$token])) ? $this->negative[$token] + 1 : 1;
     }
 
     /**
