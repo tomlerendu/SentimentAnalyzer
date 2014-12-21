@@ -12,15 +12,10 @@ class Helper
      */
     public static function tokenize($string)
     {
-        $tokens = [];
-
-        $token = strtok($string, '\t');
-
-        while($token !== false)
-        {
-            $tokens[] = $token;
-            $token = strtok('\t');
-        }
+        $tokens = strtolower($string);
+        $tokens = preg_replace('/[^a-z0-9 ]/', '', $tokens);
+        $tokens = preg_split('/\s\s+| /', $tokens);
+        $tokens = array_diff($tokens, ['']);
 
         return $tokens;
     }
