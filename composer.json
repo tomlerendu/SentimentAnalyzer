@@ -8,9 +8,16 @@
 
     "description": "A general purpose PHP sentiment analysis library.",
     "keywords": ["sentiment", "analysis"],
-    
+
+    "autoload": {
+        "psr-4": {
+            "SentimentAnalyzer\\": "src/"
+        }
+    },
+
     "require": {
         "php": ">=5.5.0",
-        "salsify/json-streaming-parser": "v3.0"
+        "salsify/json-streaming-parser": "v3.0",
+        "phpunit/phpunit": "4.4.0"
     }
 }
