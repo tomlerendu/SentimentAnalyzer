@@ -1,0 +1,14 @@
+{
+    "positive" : [
+        ["the", 5],
+        ["it", 3],
+        ["good", 2],
+        ["great", 1]
+    ],
+    "negative" : [
+        ["the", 5],
+        ["it", 4],
+        ["bad", 2],
+        ["awful", 2]
+    ]
+}
