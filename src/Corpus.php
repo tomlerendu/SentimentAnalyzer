@@ -11,9 +11,11 @@ class Corpus
 
     public function __construct($location = null)
     {
+        //If the corpus already exists as a file
         if($location != null)
         {
-            //todo read in json file from location
+            $corpusLoader = new CorpusLoader();
+            $corpusLoader->load($location, $this);
         }
     }
 
