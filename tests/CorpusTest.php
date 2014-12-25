@@ -7,27 +7,36 @@ class CorpusTest extends PHPUnit_Framework_TestCase
     {
         $corpus = new SentimentAnalyzer\Corpus();
 
-        $corpus->addPositiveString('This sentence has two written two times in it.');
-        $corpus->addPositiveString('Another string.');
-        $corpus->addNegativeString('Three is written three times in this sentence to make getNegativeCount return three.');
-        $corpus->addNegativeString('This is another string');
+        $corpus->addPositiveWord('two', 2);
+        $corpus->addPositiveWord('hello');
+        $corpus->addPositiveWord('hello', 1);
+        $corpus->addPositiveWord('test');
+
+        $corpus->addNegativeWord('hello', 5);
+        $corpus->addNegativeWord('the');
+        $corpus->addNegativeWord('a', 1);
 
         $this->assertEquals(2, $corpus->getPositiveCount('two'));
-        $this->assertEquals(1, $corpus->getPositiveCount('this'));
-        $this->assertEquals(1, $corpus->getPositiveCount('another'));
-        $this->assertEquals(0, $corpus->getPositiveCount('hello'));
+        $this->assertEquals(2, $corpus->getPositiveCount('hello'));
+        $this->assertEquals(1, $corpus->getPositiveCount('test'));
+        $this->assertEquals(0, $corpus->getPositiveCount('word'));
 
-        $this->assertEquals(3, $corpus->getNegativeCount('three'));
-        $this->assertEquals(1, $corpus->getNegativeCount('getnegativecount'));
-        $this->assertEquals(1, $corpus->getNegativeCount('another'));
-        $this->assertEquals(0, $corpus->getNegativeCount('hello'));
+        $this->assertEquals(5, $corpus->getNegativeCount('hello'));
+        $this->assertEquals(1, $corpus->getNegativeCount('a'));
+        $this->assertEquals(1, $corpus->getNegativeCount('the'));
+        $this->assertEquals(0, $corpus->getNegativeCount('word'));
     }
 
     public function testProbability()
     {
         $corpus = new SentimentAnalyzer\Corpus();
 
-        $corpus->addPositiveString('The probability is one in six.');
+        $corpus->addPositiveWord('the');
+        $corpus->addPositiveWord('probability');
+        $corpus->addPositiveWord('is');
+        $corpus->addPositiveWord('one');
+        $corpus->addPositiveWord('in');
+        $corpus->addPositiveWord('six');
 
         $this->assertEquals(1/6, $corpus->getPositiveProbability('the'));
         $this->assertEquals(1/6, $corpus->getPositiveProbability('six'));

@@ -5,8 +5,8 @@ namespace SentimentAnalyzer;
 class Corpus
 {
     private $totalPositive = 0;
-    private $positive = [];
     private $totalNegative = 0;
+    private $positive = [];
     private $negative = [];
 
     public function __construct($location = null)
@@ -20,33 +20,25 @@ class Corpus
     }
 
     /**
-     * Adds a string to the corpus that has been classified as positive
-     * @param $string - The string to be added to the corpus
+     * Adds a word to the corpus that has been classified as positive
+     * @param $word - The word to be added to the corpus
+     * @param $count - How many times the word occurred
      */
-    public function addPositiveString($string)
+    public function addPositiveWord($word, $count=1)
     {
-        $tokens = Helper::tokenize($string);
-
-        foreach($tokens as $token)
-        {
-            $this->positive[$token] = (isset($this->positive[$token])) ? $this->positive[$token] + 1 : 1;
-            $this->totalPositive++;
-        }
+        $this->positive[$word] = (isset($this->positive[$word])) ? $this->positive[$word] + $count : $count;
+        $this->totalPositive += $count;
     }
 
     /**
-     * Adds a string to the corpus that has been classified as negative
-     * @param $string - The string to be added to the corpus
+     * Adds a word to the corpus that has been classified as negative
+     * @param $word - The word to be added to the corpus
+     * @param $count - How many times the word occurred
      */
-    public function addNegativeString($string)
+    public function addNegativeWord($word, $count=1)
     {
-        $tokens = Helper::tokenize($string);
-
-        foreach($tokens as $token)
-        {
-            $this->negative[$token] = (isset($this->negative[$token])) ? $this->negative[$token] + 1 : 1;
-            $this->totalNegative++;
-        }
+        $this->negative[$word] = (isset($this->negative[$word])) ? $this->negative[$word] + $count : $count;
+        $this->totalNegative += $count;
     }
 
     /**
