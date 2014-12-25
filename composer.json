@@ -6,7 +6,7 @@
     "author": "Tom Lerendu",
     "license": "Apache-2.0",
 
-    "description": "A general purpose PHP sentiment analysis library.",
+    "description": "A general purpose sentiment analysis library written in PHP.",
     "keywords": ["sentiment", "analysis"],
 
     "autoload": {
