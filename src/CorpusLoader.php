@@ -11,8 +11,10 @@ class CorpusLoader implements \JsonStreamingParser_Listener
     {
         $this->corpus = $corpus;
 
+        $path = dirname(dirname(__FILE__)) . "/data/" . $location;
+        
         //Open the file for reading
-        $jsonStream = fopen('../data/' . $location, 'r');
+        $jsonStream = fopen($path, 'r');
         try
         {
             //Use the JSON streaming parser with the current object as the listener
