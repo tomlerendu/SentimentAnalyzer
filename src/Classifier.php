@@ -19,6 +19,15 @@ class Classifier
     }
 
     /**
+     * Sets the threshold for the classifier choosing neutral for text
+     * @param $value - The similarity ( abs(pos-neg) < $value for a neutral classification)
+     */
+    public function setNeutralThreshold($value)
+    {
+        $this->neutralThreshold = $value;
+    }
+
+    /**
      * Analyze a piece of text to get the sentiment of it.
      * @param $text - The text to be analyzed
      * @return array - An array with the keys positive and negative. The values of the keys add up to 1.
