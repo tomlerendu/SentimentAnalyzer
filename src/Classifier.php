@@ -49,7 +49,8 @@ class Classifier
         }
 
         //Rescale so the positive and negative values add up to 1
-        $sentiment =  ['positive' => $totalPositive/count($tokens), 'negative' => $totalNegative/count($tokens)];
+        $sentiment['positive'] = ($totalPositive !== 0) ? $totalPositive/count($tokens) : 0;
+        $sentiment['negative'] = ($totalNegative !== 0) ? $totalNegative/count($tokens) : 0;
 
         return $sentiment;
     }
