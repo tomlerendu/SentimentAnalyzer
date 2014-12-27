@@ -12,8 +12,7 @@ class Corpus
     public function __construct($location = null)
     {
         //If the corpus already exists as a file
-        if($location != null)
-        {
+        if ($location != null) {
             $corpusLoader = new CorpusLoader();
             $corpusLoader->load($location, $this);
         }
@@ -24,7 +23,7 @@ class Corpus
      * @param $word - The word to be added to the corpus
      * @param $count - How many times the word occurred
      */
-    public function addPositiveWord($word, $count=1)
+    public function addPositiveWord($word, $count = 1)
     {
         $this->positive[$word] = (isset($this->positive[$word])) ? $this->positive[$word] + $count : $count;
         $this->totalPositive += $count;
@@ -35,7 +34,7 @@ class Corpus
      * @param $word - The word to be added to the corpus
      * @param $count - How many times the word occurred
      */
-    public function addNegativeWord($word, $count=1)
+    public function addNegativeWord($word, $count = 1)
     {
         $this->negative[$word] = (isset($this->negative[$word])) ? $this->negative[$word] + $count : $count;
         $this->totalNegative += $count;
@@ -46,9 +45,9 @@ class Corpus
      * @param $word - The word that is being counted, if no word is passed the total positive word count is returned.
      * @return int The number of occurrences of $word
      */
-    public function getPositiveCount($word=null)
+    public function getPositiveCount($word = null)
     {
-        if($word)
+        if ($word)
             return isset($this->positive[$word]) ? $this->positive[$word] : 0;
         else
             return $this->totalPositive;
@@ -59,12 +58,40 @@ class Corpus
      * @param $word - The word that is being counted, if no word is passed the total negative word count is returned.
      * @return int The number of occurrences of $word
      */
-    public function getNegativeCount($word=null)
+    public function getNegativeCount($word = null)
     {
-        if($word)
+        if ($word)
             return isset($this->negative[$word]) ? $this->negative[$word] : 0;
         else
             return $this->totalNegative;
+    }
+
+    public function getRatios($word)
+    {
+        //The probability of the word from either the positive or negative sets
+        $wordTotal = $this->getPositiveProbability($word) + $this->getNegativeProbability($word);
+
+        if($this->getPositiveCount($word) !== 0)
+            $positive = $this->getPositiveProbability($word) / $wordTotal;
+        else
+            $positive = 0;
+
+        if($this->getNegativeCount($word) !== 0)
+            $negative = $this->getNegativeProbability($word) / $wordTotal;
+        else
+            $negative = 0;
+
+        //Deal with the special case 0
+        if ($positive === 0 && $negative === 0)
+        {
+            $positive = 0.5;
+            $negative = 0.5;
+        }
+
+        return [
+            'positive' => $positive,
+            'negative' => $negative
+        ];
     }
 
     /**
@@ -86,4 +113,4 @@ class Corpus
     {
         return isset($this->negative[$word]) ? (float)$this->negative[$word] / $this->totalNegative : 0;
     }
-} 
+}
