@@ -56,5 +56,26 @@ class CorpusTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(2/11, $corpus->getPositiveProbability('good'));
         $this->assertEquals(2/13, $corpus->getNegativeProbability('bad'));
     }
+
+    public function testRatios()
+    {
+        $corpus = new SentimentAnalyzer\Corpus('../tests/test-corpus.json');
+
+        $word1 = $corpus->getRatios('the');;
+        $this->assertEquals(0.54166666666667, $word1['positive']);
+        $this->assertEquals(0.45833333333333, $word1['negative']);
+
+        $word2 = $corpus->getRatios('bad');
+        $this->assertEquals(0, $word2['positive']);
+        $this->assertEquals(1, $word2['negative']);
+
+        $word3 = $corpus->getRatios('great');
+        $this->assertEquals(1, $word3['positive']);
+        $this->assertEquals(0, $word3['negative']);
+
+        $word4 = $corpus->getRatios('no');
+        $this->assertEquals(0.5, $word4['positive']);
+        $this->assertEquals(0.5, $word4['negative']);
+    }
 }
  
