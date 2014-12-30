@@ -1,5 +1,4 @@
 <?php
-
 namespace TomLerendu\SentimentAnalyzer;
 
 class Corpus
