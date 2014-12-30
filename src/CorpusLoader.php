@@ -1,12 +1,17 @@
 <?php
-
-namespace SentimentAnalyzer;
-
+namespace TomLerendu\SentimentAnalyzer;
 
 class CorpusLoader implements \JsonStreamingParser_Listener
 {
     private $corpus;
 
+    /**
+     * Loads a corpus json file into a corpus object.
+     *
+     * @param $location - The location of the json file relative to the data directory
+     * @param Corpus $corpus - The corpus object to load the json data into
+     * @throws \Exception
+     */
     public function load($location, Corpus $corpus)
     {
         $this->corpus = $corpus;
@@ -15,14 +20,12 @@ class CorpusLoader implements \JsonStreamingParser_Listener
 
         //Open the file for reading
         $jsonStream = fopen($path, 'r');
-        try
-        {
+        try {
             //Use the JSON streaming parser with the current object as the listener
             $parser = new \JsonStreamingParser_Parser($jsonStream, $this);
             $parser->parse();
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
+            //If an exception occurs close the file
             fclose($jsonStream);
             throw $e;
         }
@@ -44,8 +47,7 @@ class CorpusLoader implements \JsonStreamingParser_Listener
     public function key($key)
     {
         //Switch between the positive and negative word sets
-        switch($key)
-        {
+        switch($key) {
             case 'positive':
                 $this->inPositive = true;
                 $this->inNegative = false;
