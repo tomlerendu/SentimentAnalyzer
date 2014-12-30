@@ -1,11 +1,11 @@
 <?php
-
-namespace SentimentAnalyzer;
-
+namespace TomLerendu\SentimentAnalyzer;
 
 class Classifier
 {
     private $corpus;
+
+    private $ignoreTokensThreshold;
     private $neutralThreshold;
 
     const POSITIVE = 1;
@@ -16,6 +16,7 @@ class Classifier
     {
         $this->corpus = $corpus;
         $this->neutralThreshold = 0.1;
+        $this->ignoreTokensThreshold = 0;
     }
 
     /**
@@ -25,6 +26,15 @@ class Classifier
     public function setNeutralThreshold($value)
     {
         $this->neutralThreshold = $value;
+    }
+
+    /**
+     * Sets the threshold for ignoring a token
+     * @param $value - The number times a token must appear in the data set for it to be included in the sentiment
+     */
+    public function ignoreTokensThreshold($value)
+    {
+        $this->ignoreTokensThreshold = $value;
     }
 
     /**
@@ -38,19 +48,29 @@ class Classifier
 
         $totalPositive = 0.0;
         $totalNegative = 0.0;
+        $usedTokens = [];
 
         //For each token
-        foreach($tokens as $token)
-        {
-            $ratios = $this->corpus->getRatios($token);
+        foreach ($tokens as $token) {
 
-            $totalPositive += $ratios['positive'];
-            $totalNegative += $ratios['negative'];
+            $totalTokens = $this->corpus->getPositiveCount($token) + $this->corpus->getNegativeCount($token);
+
+            if($totalTokens >= $this->ignoreTokensThreshold) {
+                $ratios = $this->corpus->getRatios($token);
+                $totalPositive += $ratios['positive'];
+                $totalNegative += $ratios['negative'];
+                $usedTokens[] = $token;
+            }
         }
 
-        //Rescale so the positive and negative values add up to 1
-        $sentiment['positive'] = ($totalPositive !== 0) ? $totalPositive/count($tokens) : 0;
-        $sentiment['negative'] = ($totalNegative !== 0) ? $totalNegative/count($tokens) : 0;
+        if(count($usedTokens) == 0)
+            $sentiment = ['positive' => 0, 'negative' => 0, 'tokens' => null];
+        else {
+            //Rescale so the positive and negative values add up to 1
+            $sentiment['positive'] = ($totalPositive !== 0) ? $totalPositive / count($usedTokens) : 0;
+            $sentiment['negative'] = ($totalNegative !== 0) ? $totalNegative / count($usedTokens) : 0;
+            $sentiment['tokens'] = $usedTokens;
+        }
 
         return $sentiment;
     }
@@ -58,7 +78,7 @@ class Classifier
     /**
      * Classify a piece of text as either positive, negative or neutral.
      * @param $text - The text to be analyzed
-     * @return int - The assigned label. Either Classifier::POSITIVE, Classifier::Negative or Classifier::NEUTRAL
+     * @return int - The assigned label. Either Classifier::POSITIVE, Classifier::NEGATIVE or Classifier::NEUTRAL
      */
     public function getClassification($text)
     {
