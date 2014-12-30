@@ -1,6 +1,5 @@
 <?php
-
-namespace SentimentAnalyzer;
+namespace TomLerendu\SentimentAnalyzer;
 
 class CorpusCreator
 {
