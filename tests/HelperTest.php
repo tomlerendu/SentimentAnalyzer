@@ -19,7 +19,7 @@ class HelperTest extends PHPUnit_Framework_TestCase
 
         $expectedResults = [];
         foreach($strings as $item)
-            $expectedResults[] = SentimentAnalyzer\Helper::tokenize($item);
+            $expectedResults[] = TomLerendu\SentimentAnalyzer\Helper::tokenize($item);
 
         $actualResults = [
             ['hello'],

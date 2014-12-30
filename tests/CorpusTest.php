@@ -5,7 +5,7 @@ class CorpusTest extends PHPUnit_Framework_TestCase
 {
     public function testWordCount()
     {
-        $corpus = new SentimentAnalyzer\Corpus();
+        $corpus = new TomLerendu\SentimentAnalyzer\Corpus();
 
         $corpus->addPositiveWord('two', 2);
         $corpus->addPositiveWord('hello');
@@ -29,7 +29,7 @@ class CorpusTest extends PHPUnit_Framework_TestCase
 
     public function testProbability()
     {
-        $corpus = new SentimentAnalyzer\Corpus();
+        $corpus = new TomLerendu\SentimentAnalyzer\Corpus();
 
         $corpus->addPositiveWord('the');
         $corpus->addPositiveWord('probability');
@@ -45,7 +45,7 @@ class CorpusTest extends PHPUnit_Framework_TestCase
 
     public function testLoadingDataFile()
     {
-        $corpus = new SentimentAnalyzer\Corpus('../tests/test-corpus.json');
+        $corpus = new TomLerendu\SentimentAnalyzer\Corpus('../tests/test-corpus.json');
 
         $this->assertEquals(11, $corpus->getPositiveCount());
         $this->assertEquals(13, $corpus->getNegativeCount());
@@ -59,7 +59,7 @@ class CorpusTest extends PHPUnit_Framework_TestCase
 
     public function testRatios()
     {
-        $corpus = new SentimentAnalyzer\Corpus('../tests/test-corpus.json');
+        $corpus = new TomLerendu\SentimentAnalyzer\Corpus('../tests/test-corpus.json');
 
         $word1 = $corpus->getRatios('the');;
         $this->assertEquals(0.54166666666667, $word1['positive']);
