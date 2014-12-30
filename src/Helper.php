@@ -1,7 +1,5 @@
 <?php
-
-namespace SentimentAnalyzer;
-
+namespace TomLerendu\SentimentAnalyzer;
 
 class Helper
 {
