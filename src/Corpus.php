@@ -1,6 +1,6 @@
 <?php
 
-namespace SentimentAnalyzer;
+namespace TomLerendu\SentimentAnalyzer;
 
 class Corpus
 {
@@ -71,19 +71,11 @@ class Corpus
         //The probability of the word from either the positive or negative sets
         $wordTotal = $this->getPositiveProbability($word) + $this->getNegativeProbability($word);
 
-        if($this->getPositiveCount($word) !== 0)
-            $positive = $this->getPositiveProbability($word) / $wordTotal;
-        else
-            $positive = 0;
+        $positive = ($this->getPositiveCount($word) === 0) ? 0 : $this->getPositiveProbability($word) / $wordTotal;
+        $negative = ($this->getNegativeCount($word) === 0) ? 0 : $this->getNegativeProbability($word) / $wordTotal;
 
-        if($this->getNegativeCount($word) !== 0)
-            $negative = $this->getNegativeProbability($word) / $wordTotal;
-        else
-            $negative = 0;
-
-        //Deal with the special case 0
-        if ($positive === 0 && $negative === 0)
-        {
+        //Deal with the special case of 0 for both positive and negative
+        if($positive === 0 && $negative === 0) {
             $positive = 0.5;
             $negative = 0.5;
         }
