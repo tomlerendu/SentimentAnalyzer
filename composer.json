@@ -1,9 +1,13 @@
 {
     "name": "tomlerendu/sentiment-analyzer",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "type": "library",
 
-    "author": "Tom Lerendu",
+    "authors": {
+        "name": "Tom Lerendu",
+        "homepage": "http://tomlerendu.com"
+    },
+
     "license": "Apache-2.0",
 
     "description": "A general purpose sentiment analysis library written in PHP.",
