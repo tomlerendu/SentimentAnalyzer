@@ -55,7 +55,7 @@ class Classifier
 
             $totalTokens = $this->corpus->getPositiveCount($token) + $this->corpus->getNegativeCount($token);
 
-            if($totalTokens >= $this->ignoreTokensThreshold) {
+            if ($totalTokens >= $this->ignoreTokensThreshold) {
                 $ratios = $this->corpus->getRatios($token);
                 $totalPositive += $ratios['positive'];
                 $totalNegative += $ratios['negative'];
@@ -63,7 +63,7 @@ class Classifier
             }
         }
 
-        if(count($usedTokens) == 0)
+        if (count($usedTokens) == 0)
             $sentiment = ['positive' => 0, 'negative' => 0, 'tokens' => null];
         else {
             //Rescale so the positive and negative values add up to 1
@@ -84,9 +84,9 @@ class Classifier
     {
         $sentiment = $this->getSentiment($text);
 
-        if(abs($sentiment['positive'] - $sentiment['negative']) < $this->neutralThreshold)
+        if (abs($sentiment['positive'] - $sentiment['negative']) < $this->neutralThreshold)
             return Classifier::NEUTRAL;
-        if($sentiment['positive'] > $sentiment['negative'])
+        elseif ($sentiment['positive'] > $sentiment['negative'])
             return Classifier::POSITIVE ;
         else
             return Classifier::NEGATIVE;

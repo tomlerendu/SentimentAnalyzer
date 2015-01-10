@@ -74,7 +74,7 @@ class Corpus
         $negative = ($this->getNegativeCount($word) === 0) ? 0 : $this->getNegativeProbability($word) / $wordTotal;
 
         //Deal with the special case of 0 for both positive and negative
-        if($positive === 0 && $negative === 0) {
+        if ($positive === 0 && $negative === 0) {
             $positive = 0.5;
             $negative = 0.5;
         }

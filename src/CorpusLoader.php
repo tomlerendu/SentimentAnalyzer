@@ -36,18 +36,38 @@ class CorpusLoader implements \JsonStreamingParser_Listener
     private $atWord = true;
     private $word = '';
 
-    public function file_position($line, $char) { }
-    public function start_document() { }
-    public function end_document() { }
-    public function start_object() { }
-    public function end_object() { }
-    public function start_array() { }
-    public function end_array() { }
+    public function file_position($line, $char)
+    {
+    }
+
+    public function start_document()
+    {
+    }
+
+    public function end_document()
+    {
+    }
+
+    public function start_object()
+    {
+    }
+
+    public function end_object()
+    {
+    }
+
+    public function start_array()
+    {
+    }
+
+    public function end_array()
+    {
+    }
 
     public function key($key)
     {
         //Switch between the positive and negative word sets
-        switch($key) {
+        switch ($key) {
             case 'positive':
                 $this->inPositive = true;
                 $this->inNegative = false;
@@ -61,27 +81,27 @@ class CorpusLoader implements \JsonStreamingParser_Listener
 
     public function value($value)
     {
-        //If the value is a positive or negative word
-        if(($this->inPositive || $this->inNegative) && $this->atWord)
-        {
+        if (($this->inPositive || $this->inNegative) && $this->atWord) {
+            //If the value is a positive or negative word
+
             $this->word = $value;
             $this->atWord = false;
         }
+        elseif ($this->inPositive && !$this->atWord) {
+            //If the value is the positive word count add it to the corpus object
 
-        //If the value is the word count add it to the corpus object
-
-        else if($this->inPositive && !$this->atWord)
-        {
             $this->corpus->addPositiveWord($this->word, $value);
             $this->atWord = true;
         }
+        elseif ($this->inNegative && !$this->atWord) {
+            //If the value is the negative word count add it to the corpus object
 
-        else if($this->inNegative && !$this->atWord)
-        {
             $this->corpus->addNegativeWord($this->word, $value);
             $this->atWord = true;
         }
     }
 
-    public function whitespace($whitespace) { }
+    public function whitespace($whitespace)
+    {
+    }
 }
